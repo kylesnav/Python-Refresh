@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from pathlib import Path
 
-url = "https://www.theverge.com/"
+url = "https://blueskyweb.xyz/" # Domain to scrape images from.
 
 def get_links(url, domain, visited_links):
     links = []
@@ -45,7 +45,7 @@ def scrape(url, domain, visited_links, path):
         scrape(link, domain, visited_links, path)
 
 def main():
-    domain = "https://www.theverge.com"
+    domain = url
     visited_links = set()
     path = os.path.join(os.path.expanduser("~"), "Desktop", "images")
     os.makedirs(path, exist_ok=True)
