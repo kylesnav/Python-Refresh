@@ -1,6 +1,5 @@
 import os
 import requests
-import warnings
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from pathlib import Path
@@ -18,7 +17,7 @@ def get_links(url, domain, visited_links):
         if link.startswith(domain) and link not in visited_links:
             links.append(link)
             visited_links.add(link)
-            print(link) # printing the links for testing purposes
+            # print(link) # Printing the links for testing purposes
     return links
 
 def get_images(url):
@@ -42,20 +41,29 @@ def save_image(url, path):
         for chunk in response.iter_content(chunk_size=128):
             out_file.write(chunk)
 
-def scrape(url, domain, visited_links, path):
+def write_tree(link, depth, file):
+    indentation = '  ' * depth
+    file.write(f'{indentation}{link}\n')
+    print(indentation+link)
+
+def scrape(url, domain, visited_links, path, file, depth=0):
     links = get_links(url, domain, visited_links)
     for link in links:
+        write_tree(link, depth, file)
         images = get_images(link)
         for image in images:
             save_image(image, path)
-            print('---> ' + image)
-        scrape(link, domain, visited_links, path)
-
+            # print('---> ' + image) # Printing the image src for testing purposes
+        scrape(link, domain, visited_links, path, file, depth + 1)
+        
 def main():
     domain = url
     visited_links = set()
     path = os.path.join(os.path.expanduser("~"), "Desktop", "images")
     os.makedirs(path, exist_ok=True)
-    scrape(url, domain, visited_links, path)
+    tree_file_path = os.path.join(path, "link_tree.txt")
+    with open(tree_file_path, "w") as tree_file:
+        scrape(url, domain, visited_links, path, tree_file)
+
 if __name__ == '__main__':
     main()
