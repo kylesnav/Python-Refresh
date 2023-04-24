@@ -2,7 +2,12 @@ import os
 from pathlib import Path
 
 def get_files_and_folders(path):
-    entries = os.listdir(path)
+    try:
+        entries = os.listdir(path)
+    except PermissionError:
+        print(f"PermissionError: Cannot access {path}")
+        return [], []
+
     files = []
     folders = []
 
@@ -18,7 +23,6 @@ def get_files_and_folders(path):
 def write_tree_entry(entry, depth, file):
     indentation = '  ' * depth
     file.write(f'{indentation}{entry}\n')
-    print(indentation + entry)
 
 def create_tree(path, file, depth=0):
     files, folders = get_files_and_folders(path)
