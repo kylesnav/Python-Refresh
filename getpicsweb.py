@@ -54,16 +54,28 @@ def landing_page():
     <html>
         <head>
             <title>Images</title>
+            <style>
+                .image-gallery {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    grid-gap: 10px;
+                    padding: 10px;
+                }
+                .image-gallery img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                }
+            </style>
         </head>
         <body>
-            <ul>
+            <div class="image-gallery">
                 {% for image in images %}
                     <img src="{{ image }}">
                 {% endfor %}
-            </ul>
+            </div>
         </body>
-    </html>
-    """
+    </html>"""
     return render_template_string(template, images=images)
 
 if __name__ == '__main__':
