@@ -6,7 +6,7 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY") # Must have .env containing this variable and your API key in the same directory.
 
-prompt = "Name 5 types of cat"
+prompt = "Name 5 types of cat" # Type your prompt here.
 
 response = openai.Completion.create(
   model="text-davinci-003",
