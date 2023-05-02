@@ -13,3 +13,5 @@
 **[hellogpt.py](hellogpt.py):** Simple experimentation with the OpenAI API. Takes in a basic prompt, returns simple completion.
 
 **[xwordsorless.py](xwordsorless.py):** An article summarizer built using OpenAI's API and DaVinci003 model. Takes in a desired maximum wordcount and article URL, then returns a summary of the article under the desired word count.
+
+**[imagemaker.py](imagemaker.py):** A simple image generator that takes in a prompt, creates an image using OpenAI's API, and saves it to the desktop.
